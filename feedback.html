@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feedback Page</title>
+</head>
+<body>
+	<font face="monospace" color="#007f8e" size="7" ><h1 align="center">Feedback Page</h1></font>
+	<form>
+		<label>Name:</label>
+		<input type="text" id="name" required pattern="[A-Za-z]{1,50}" title="Please enter your name (max 50 characters)"><br><br>
+		
+		<label>Email:</label>
+		<input type="email" id="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address"><br><br>
+		
+		<label>Feedback:</label>
+		<textarea id="feedback" required maxlength="500" title="Please enter your feedback (max 500 characters)"></textarea><br><br>
+		
+		<input type="submit" value="Submit Feedback">
+	</form>
+</body>
+</html>
