@@ -18,11 +18,19 @@ def optimize_tool():
     try:
         result = groq_service.optimize_tool(data['input_text'])
         
+        tool_schema = result.get('tool_schema')
+        if isinstance(tool_schema, (dict, list)):
+            tool_schema = json.dumps(tool_schema)
+            
+        suggestions = result.get('suggestions')
+        if isinstance(suggestions, (dict, list)):
+            suggestions = json.dumps(suggestions)
+            
         tool_analysis = ToolAnalysis(
             input_text=data['input_text'],
             optimized_description=result.get('optimized_description'),
-            tool_schema=result.get('tool_schema'),
-            suggestions=result.get('suggestions')
+            tool_schema=tool_schema,
+            suggestions=suggestions
         )
         db.session.add(tool_analysis)
         db.session.commit()
@@ -37,12 +45,26 @@ def get_history():
     analyses = ToolAnalysis.query.order_by(ToolAnalysis.created_at.desc()).all()
     results = []
     for a in analyses:
+        tool_schema = a.tool_schema
+        if tool_schema:
+            try:
+                tool_schema = json.loads(tool_schema)
+            except Exception:
+                pass
+                
+        suggestions = a.suggestions
+        if suggestions:
+            try:
+                suggestions = json.loads(suggestions)
+            except Exception:
+                pass
+                
         results.append({
             "id": a.id,
             "input_text": a.input_text,
             "optimized_description": a.optimized_description,
-            "tool_schema": a.tool_schema,
-            "suggestions": a.suggestions,
+            "tool_schema": tool_schema,
+            "suggestions": suggestions,
             "created_at": a.created_at.isoformat() if a.created_at else None
         })
     return jsonify(results)
