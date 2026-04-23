@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --background: oklch(98% 0.005 80); /* Warm Off-White */
+  --foreground: oklch(25% 0.01 80); /* Deep Charcoal */
+  --primary: oklch(35% 0.01 80); /* Slate/Charcoal for sleek primary */
+  --primary-foreground: oklch(98% 0.005 80);
+  --muted: oklch(92% 0.01 80); /* Slightly darker muted bg */
+  --muted-foreground: oklch(45% 0.01 80);
+  --card: oklch(100% 0 0); /* Pure White */
+  --card-foreground: oklch(25% 0.01 80);
+  --border: oklch(85% 0.02 80); /* Darker border for definition */
+  --ring: oklch(35% 0.01 80);
+  --radius: 1.5rem; /* Generous Space-Age rounding */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee2 {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0%); }
+}
+
+@utility animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+@utility animate-marquee2 {
+  animation: marquee2 30s linear infinite;
+}
